@@ -1,0 +1,4 @@
+Perfume      , true , other  , 27.99
+Perfume      , false, other  , 18.99
+Pills        , false, medical,  9.75
+Chocolate    , true, food , 11.25
