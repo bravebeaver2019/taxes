@@ -52,4 +52,14 @@ public class Product {
     public int hashCode() {
         return Objects.hash(getName(), getCategory(), isImported(), getBasePrice());
     }
+
+    @Override
+    public String toString() {
+        return "" +
+                "" + name +
+                " " + category +
+                " imported " + imported +
+                " at " + basePrice +
+                '}';
+    }
 }

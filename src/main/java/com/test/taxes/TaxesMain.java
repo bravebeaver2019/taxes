@@ -16,7 +16,7 @@ public class TaxesMain {
     public static void main(String[] args) {
 
         InputStream in = TaxesMain.class.getClassLoader()
-                .getResourceAsStream("input1.csv");
+                .getResourceAsStream("input3.csv");
 
         ProductCSVLineDeserializer lineDeserializer = new ProductCSVLineDeserializer(",");
         ProductCSVDeserializer deserializer = new ProductCSVDeserializer(lineDeserializer);

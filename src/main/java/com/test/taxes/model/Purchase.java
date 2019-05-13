@@ -28,10 +28,16 @@ public class Purchase {
 
     @Override
     public String toString() {
-        return "Purchase{" +
-                "products=" + products +
-                '}' +
-                "\ntotal: " + getTotalAmount() +
-                "\ntotal taxes: " + getTotalTaxes() + "";
+        // todo: improve and cleanup
+        StringBuffer s = new StringBuffer();
+        s.append("Order \n");
+        products.stream().forEach( p-> {
+            s.append(p.getAmount());
+            s.append(" ");
+            s.append(p.getProduct());
+        });
+        s.append("\nSales Taxes: " + getTotalTaxes() + "");
+        s.append("\nTotal: " + getTotalAmount());
+        return s.toString();
     }
 }

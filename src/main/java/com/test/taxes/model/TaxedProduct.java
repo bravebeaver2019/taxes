@@ -37,12 +37,8 @@ public class TaxedProduct extends Product {
 
     @Override
     public String toString() {
-        return "{" +
-                " name='" + name + '\'' +
-                ", category=" + category +
-                ", imported=" + imported +
-                ", basePrice=" + basePrice +
-                ", taxedPrice=" + taxedPrice +
-                '}';
+        return ((imported)?"imported ":"") +
+                "" + name +
+                " at " + taxedPrice + "\n";
     }
 }
