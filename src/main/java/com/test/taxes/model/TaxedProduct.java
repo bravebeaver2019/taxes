@@ -37,7 +37,7 @@ public class TaxedProduct extends Product {
 
     @Override
     public String toString() {
-        return "TaxedProduct{" +
+        return "{" +
                 " name='" + name + '\'' +
                 ", category=" + category +
                 ", imported=" + imported +

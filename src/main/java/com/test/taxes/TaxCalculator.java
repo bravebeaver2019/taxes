@@ -1,5 +1,6 @@
 package com.test.taxes;
 
+import com.test.taxes.model.OrderLine;
 import com.test.taxes.model.Product;
 import com.test.taxes.model.TaxedProduct;
 import com.test.taxes.tax.TaxModelProvider;
@@ -15,7 +16,13 @@ public class TaxCalculator {
         this.taxModelProvider = taxModelProvider;
     }
 
-    public List<TaxedProduct> calculate(List<Product> original) {
+    /**
+     * This method receives a list of order lines of UNTAXED products
+     * and returns a list of order lines of TAXED products
+     * @param original untaxed
+     * @return taxed
+     */
+    public List<OrderLine<TaxedProduct>> calculate(List<OrderLine<Product>> original) {
         return original.stream().map(taxModelProvider.getTaxModel()).collect(Collectors.toList());
     }
 }

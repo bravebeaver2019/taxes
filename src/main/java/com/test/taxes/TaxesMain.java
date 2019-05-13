@@ -1,6 +1,8 @@
 package com.test.taxes;
 
+import com.test.taxes.model.OrderLine;
 import com.test.taxes.model.Product;
+import com.test.taxes.model.Purchase;
 import com.test.taxes.model.TaxedProduct;
 import com.test.taxes.serializer.ProductCSVDeserializer;
 import com.test.taxes.serializer.ProductCSVLineDeserializer;
@@ -14,15 +16,15 @@ public class TaxesMain {
     public static void main(String[] args) {
 
         InputStream in = TaxesMain.class.getClassLoader()
-                .getResourceAsStream("input.csv");
+                .getResourceAsStream("input1.csv");
 
         ProductCSVLineDeserializer lineDeserializer = new ProductCSVLineDeserializer(",");
         ProductCSVDeserializer deserializer = new ProductCSVDeserializer(lineDeserializer);
-        List<Product> originalProducts = deserializer.deserialize(in);
+        List<OrderLine<Product>> originalProducts = deserializer.deserialize(in);
 
         TaxModelProvider taxModelProvider = new TaxModelProvider();
         TaxCalculator calculator = new TaxCalculator(taxModelProvider);
-        List<TaxedProduct> taxedProducts = calculator.calculate(originalProducts);
-        System.err.println(taxedProducts.toString());
+        List<OrderLine<TaxedProduct>> taxedProducts = calculator.calculate(originalProducts);
+        System.err.println(new Purchase(taxedProducts).toString());
     }
 }

@@ -1,5 +1,6 @@
 package com.test.taxes;
 
+import com.test.taxes.model.OrderLine;
 import com.test.taxes.model.Product;
 import com.test.taxes.model.ProductCategory;
 import com.test.taxes.model.TaxedProduct;
@@ -21,15 +22,15 @@ public class TaxCalculatorTest {
 
         TaxModelProvider mockTaxModelProvider = new TaxModelProvider() {
             @Override
-            public Function<Product, TaxedProduct> getTaxModel() {
-                return o -> new TaxedProduct(o, TAXED_PRICE);
+            public Function<OrderLine<Product>, OrderLine<TaxedProduct>> getTaxModel() {
+                return o -> new OrderLine<>(o.getAmount(), new TaxedProduct(o.getProduct(), TAXED_PRICE));
             }
         };
 
         TaxCalculator calculator = new TaxCalculator(mockTaxModelProvider);
         calculator.calculate(Arrays.asList(
-                new Product(null, ProductCategory.BOOK, false, BigDecimal.ONE),
-                new Product(null, ProductCategory.MEDICAL, true, BigDecimal.ONE)
-        )).stream().forEach( taxedProduct -> assertEquals(TAXED_PRICE, taxedProduct.getTaxedPrice()));
+                new OrderLine<>(1, new Product(null, ProductCategory.BOOK, false, BigDecimal.ONE)),
+                new OrderLine<>(1, new Product(null, ProductCategory.MEDICAL, true, BigDecimal.ONE))
+        )).stream().forEach( taxedProduct -> assertEquals(TAXED_PRICE, taxedProduct.getProduct().getTaxedPrice()));
     }
 }

@@ -1,8 +1,8 @@
-carrots,                true,   food,       123.99
-apples,                 false,  food,       224.99
-The Lord of the rings,  false,  book,        15
-Momo,                   true,   book,        12.50
-IPhone,                 true,   phone,      999
-dell X12,               false,  computer,  1200.00
-Aspirine,               true,   medical,      3.12
-Stethoscope,            false,  medical,    245.99
+1, carrots,                true,   food,       123.99
+1, apples,                 false,  food,       224.99
+1, The Lord of the rings,  false,  book,        15
+1, Momo,                   true,   book,        12.50
+1, IPhone,                 true,   phone,      999
+1, dell X12,               false,  computer,  1200.00
+1, Aspirine,               true,   medical,      3.12
+1, Stethoscope,            false,  medical,    245.99

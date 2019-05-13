@@ -1,5 +1,6 @@
 package com.test.taxes.serializer;
 
+import com.test.taxes.model.OrderLine;
 import com.test.taxes.model.Product;
 
 import java.io.BufferedReader;
@@ -17,8 +18,8 @@ public class ProductCSVDeserializer {
         this.lineDeserializer = lineDeserializer;
     }
 
-    public List<Product> deserialize(InputStream input) {
-        ArrayList<Product> products = new ArrayList<>();
+    public List<OrderLine<Product>> deserialize(InputStream input) {
+        ArrayList<OrderLine<Product>> products = new ArrayList<>();
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
             String line;
