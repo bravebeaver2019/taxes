@@ -38,7 +38,7 @@ public class Purchase {
             s.append(p.getProduct());
         });
         s.append("Sales Taxes: ").append(getTotalTaxes()).append("\n");
-        s.append("Total: ").append(getTotalAmount()).append("\n");
+        s.append("Total: ").append(getTotalAmount());
         return s.toString();
     }
 }

@@ -13,8 +13,9 @@ public class TaxedProduct extends Product {
         this.category = product.category;
         this.imported = product.imported;
         this.basePrice = product.basePrice;
-        this.taxedPrice = new BigDecimal(0.05*(Math.ceil(Math.abs(taxedPrice.doubleValue()/0.05))))
-                .setScale(2, BigDecimal.ROUND_CEILING);
+        this.taxedPrice = taxedPrice;
+        //new BigDecimal(0.05*(Math.ceil(Math.abs(taxedPrice.doubleValue()/0.05))))
+        //        .setScale(2, BigDecimal.ROUND_CEILING);
     }
 
     public BigDecimal getTaxedPrice() {
