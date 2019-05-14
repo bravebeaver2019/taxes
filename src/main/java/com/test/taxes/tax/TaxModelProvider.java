@@ -31,8 +31,9 @@ public class TaxModelProvider {
             if(product.isImported()) { // 5% import
                 tax+=(basePrice.multiply(FIVE_PERCENT)).floatValue();
             }
+            BigDecimal taxDecimal = new BigDecimal(tax).setScale(2, BigDecimal.ROUND_CEILING);
             return new OrderLine(o.getAmount(),
-                    new TaxedProduct(product, basePrice.add(new BigDecimal(tax).setScale(2, BigDecimal.ROUND_CEILING))));
+                    new TaxedProduct(product, basePrice.add(taxDecimal)));
         };
     }
 }

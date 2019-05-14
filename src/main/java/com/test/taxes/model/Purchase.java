@@ -17,27 +17,28 @@ public class Purchase {
     }
 
     public BigDecimal getTotalAmount() {
-        return products.stream().map( o -> o.getProduct().getTaxedPrice() ).collect(Collectors.toList()).stream()
+        return products.stream().map( o -> o.getProduct().getTaxedPrice() )
+                .collect(Collectors.toList()).stream()
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     public BigDecimal getTotalTaxes() {
-        return getTotalAmount().subtract(products.stream().map( o -> o.getProduct().getBasePrice() ).collect(Collectors.toList()).stream()
+        return getTotalAmount().subtract(products.stream().map( o -> o.getProduct().getBasePrice() )
+                .collect(Collectors.toList()).stream()
                 .reduce(BigDecimal.ZERO, BigDecimal::add));
     }
 
     @Override
     public String toString() {
-        // todo: improve and cleanup
         StringBuffer s = new StringBuffer();
-        s.append("Order \n");
+        s.append("Order\n");
         products.stream().forEach( p-> {
             s.append(p.getAmount());
             s.append(" ");
             s.append(p.getProduct());
         });
-        s.append("\nSales Taxes: " + getTotalTaxes() + "");
-        s.append("\nTotal: " + getTotalAmount());
+        s.append("Sales Taxes: ").append(getTotalTaxes()).append("\n");
+        s.append("Total: ").append(getTotalAmount()).append("\n");
         return s.toString();
     }
 }
