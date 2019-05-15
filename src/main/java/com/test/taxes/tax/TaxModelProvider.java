@@ -6,6 +6,7 @@ import com.test.taxes.model.ProductCategory;
 import com.test.taxes.model.TaxedProduct;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.function.Function;
 
 public class TaxModelProvider {
@@ -24,16 +25,22 @@ public class TaxModelProvider {
         return o -> {
             Product product = o.getProduct();
             BigDecimal basePrice = product.getBasePrice();
-            double tax = 0;
+            BigDecimal tax = BigDecimal.ZERO;
             if(product.getCategory().equals(ProductCategory.OTHER)) { //10% Base
-                tax+=(basePrice.multiply(TEN_PERCENT)).floatValue();
+                tax = getAmountFor(product.getBasePrice(), TEN_PERCENT);
             }
             if(product.isImported()) { // 5% import
-                tax+=(basePrice.multiply(FIVE_PERCENT)).floatValue();
+                tax = tax.add(getAmountFor(product.getBasePrice(), FIVE_PERCENT));
             }
-            BigDecimal taxDecimal = new BigDecimal(tax).setScale(2, BigDecimal.ROUND_CEILING);
             return new OrderLine(o.getAmount(),
-                    new TaxedProduct(product, basePrice.add(taxDecimal)));
+                    new TaxedProduct(product, basePrice.add(tax)));
         };
+    }
+
+    public BigDecimal getAmountFor(BigDecimal basePrice, BigDecimal rate) {
+        // todo: move to another function and test
+        BigDecimal amount = rate.multiply(basePrice);
+        BigDecimal result = new BigDecimal(Math.ceil(amount.doubleValue() * 20) / 20);
+        return result.setScale(2, RoundingMode.HALF_UP);
     }
 }

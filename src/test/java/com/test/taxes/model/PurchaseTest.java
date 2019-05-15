@@ -20,7 +20,7 @@ public class PurchaseTest {
         OrderLine<TaxedProduct> orderLine2 = new OrderLine<>(new Integer(1), taxedProduct2);
 
         Purchase purchase = new Purchase(Arrays.asList(orderLine1, orderLine2));
-        assertEquals(new BigDecimal("23.00"), purchase.getTotalAmount());
+        assertEquals(new BigDecimal("23"), purchase.getTotalAmount());
         assertEquals(new BigDecimal("11.00"), purchase.getTotalTaxes());
     }
 }

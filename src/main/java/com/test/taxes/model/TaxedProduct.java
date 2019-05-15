@@ -13,9 +13,7 @@ public class TaxedProduct extends Product {
         this.category = product.category;
         this.imported = product.imported;
         this.basePrice = product.basePrice;
-        BigDecimal v0 = taxedPrice.multiply(
-                new BigDecimal("20")).setScale(0, RoundingMode.UP).setScale(2);
-        this.taxedPrice = v0.divide(new BigDecimal("20"), RoundingMode.CEILING);
+        this.taxedPrice = taxedPrice;
     }
 
     public BigDecimal getTaxedPrice() {
