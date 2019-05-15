@@ -20,6 +20,7 @@ public class ProductCSVDeserializerTest {
 
     @Test
     public void testCSVDeserializer() {
+        // todo: I decided not to use a mocking library due to simplicity fo this case
         ProductCSVLineDeserializer mock = new ProductCSVLineDeserializer(null) {
             @Override
             public OrderLine<Product> readProduct(String csvLine) {

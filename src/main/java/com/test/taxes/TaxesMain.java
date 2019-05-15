@@ -15,6 +15,8 @@ public class TaxesMain {
 
     public static void main(String[] args) {
 
+        // todo: accept input as command line argument
+
         ProductCSVLineDeserializer lineDeserializer = new ProductCSVLineDeserializer(",");
         ProductCSVDeserializer deserializer = new ProductCSVDeserializer(lineDeserializer);
         TaxModelProvider taxModelProvider = new TaxModelProvider();
