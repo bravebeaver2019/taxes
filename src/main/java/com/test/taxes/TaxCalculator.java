@@ -23,6 +23,8 @@ public class TaxCalculator {
      * @return taxed
      */
     public List<OrderLine<TaxedProduct>> calculate(List<OrderLine<Product>> original) {
-        return original.stream().map(taxModelProvider.getTaxModel()).collect(Collectors.toList());
+        return original.stream().map(
+                taxModelProvider.getTaxModel(taxModelProvider.calculateTax())
+        ).collect(Collectors.toList());
     }
 }

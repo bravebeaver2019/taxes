@@ -20,7 +20,8 @@ public class TaxModelProvider {
      * and converts into a TAXED orderline.
      * @return taxed
      */
-    public Function<OrderLine<Product>, OrderLine<TaxedProduct>> getTaxModel() {
+    public Function<OrderLine<Product>, OrderLine<TaxedProduct>> getTaxModel(
+            BiFunction<BigDecimal, BigDecimal, BigDecimal> taxFunction) {
         // so far only one tax model is implemented
         // here we would have different tax types for different markets, etc
         return o -> {
@@ -38,7 +39,13 @@ public class TaxModelProvider {
         };
     }
 
+    /**
+     * This function calculates the tax applied to a price for a given rate.
+     * @return the tax to be applied to the product
+     */
     public BiFunction<BigDecimal, BigDecimal, BigDecimal> calculateTax() {
+        // same as before here, this function rounds the tax calculated to the closest 0.05
+        // other models could be used by implementing a factory here
         return (basePrice, rate) -> {
             BigDecimal amount = rate.multiply(basePrice);
             BigDecimal result = new BigDecimal(Math.ceil(amount.doubleValue() * 20) / 20);

@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 public class TaxModelProviderTest {
 
     TaxModelProvider tmp = new TaxModelProvider();
-    Function<OrderLine<Product>, OrderLine<TaxedProduct>> taxModel = tmp.getTaxModel();
+    Function<OrderLine<Product>, OrderLine<TaxedProduct>> taxModel = tmp.getTaxModel(tmp.calculateTax());
 
     @Test
     public void testModelBook() {

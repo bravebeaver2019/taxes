@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 import static org.junit.Assert.assertEquals;
@@ -22,8 +23,14 @@ public class TaxCalculatorTest {
 
         TaxModelProvider mockTaxModelProvider = new TaxModelProvider() {
             @Override
-            public Function<OrderLine<Product>, OrderLine<TaxedProduct>> getTaxModel() {
+            public Function<OrderLine<Product>, OrderLine<TaxedProduct>> getTaxModel(
+                    BiFunction<BigDecimal, BigDecimal, BigDecimal> taxFunction) {
                 return o -> new OrderLine<>(o.getAmount(), new TaxedProduct(o.getProduct(), TAXED_PRICE));
+            }
+
+            @Override
+            public BiFunction<BigDecimal, BigDecimal, BigDecimal> calculateTax() {
+                return super.calculateTax();
             }
         };
 
