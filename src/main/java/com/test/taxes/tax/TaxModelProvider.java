@@ -7,6 +7,7 @@ import com.test.taxes.model.TaxedProduct;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 public class TaxModelProvider {
@@ -27,20 +28,21 @@ public class TaxModelProvider {
             BigDecimal basePrice = product.getBasePrice();
             BigDecimal tax = BigDecimal.ZERO;
             if(product.getCategory().equals(ProductCategory.OTHER)) { //10% Base
-                tax = getAmountFor(product.getBasePrice(), TEN_PERCENT);
+                tax = calculateTax().apply(basePrice, TEN_PERCENT);
             }
             if(product.isImported()) { // 5% import
-                tax = tax.add(getAmountFor(product.getBasePrice(), FIVE_PERCENT));
+                tax = tax.add(calculateTax().apply(basePrice, FIVE_PERCENT));
             }
             return new OrderLine(o.getAmount(),
                     new TaxedProduct(product, basePrice.add(tax)));
         };
     }
 
-    public BigDecimal getAmountFor(BigDecimal basePrice, BigDecimal rate) {
-        // todo: move to another function and test
-        BigDecimal amount = rate.multiply(basePrice);
-        BigDecimal result = new BigDecimal(Math.ceil(amount.doubleValue() * 20) / 20);
-        return result.setScale(2, RoundingMode.HALF_UP);
+    public BiFunction<BigDecimal, BigDecimal, BigDecimal> calculateTax() {
+        return (basePrice, rate) -> {
+            BigDecimal amount = rate.multiply(basePrice);
+            BigDecimal result = new BigDecimal(Math.ceil(amount.doubleValue() * 20) / 20);
+            return result.setScale(2, RoundingMode.CEILING);
+        };
     }
 }
